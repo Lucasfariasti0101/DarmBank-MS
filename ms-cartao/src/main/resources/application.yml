@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: "cliente-ms"
+    name: "cartao-ms"
 
 eureka:
   client:
@@ -12,3 +12,4 @@ eureka:
 
   instance:
     instance-id: ${spring.application.name}:${random.int}
+
