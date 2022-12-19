@@ -6,6 +6,8 @@ import br.com.darm.api.banco.mscartao.service.CartaoService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,4 +49,14 @@ public class CartaoController {
        return cartaoService.atualizarStatus(numeroCartao, status, mensagem);
     }
 
+    @GetMapping("/listar-todos")
+    public Page<Cartao> listar(Pageable pageable) {
+       return cartaoService.listarTodos(pageable);
+    }
+
+    @GetMapping("/listarPorStatus")
+    public Page<Cartao> listarPorStatus(@RequestParam(name = "status") String status, Pageable pageable) {
+
+       return cartaoService.listarPorStatus(status, pageable);
+    }
 }

@@ -2,9 +2,12 @@ package br.com.darm.api.banco.mscliente.controller;
 
 import br.com.darm.api.banco.mscliente.dto.CartaoDto;
 import br.com.darm.api.banco.mscliente.dto.ClienteDto;
+import br.com.darm.api.banco.mscliente.model.Cliente;
 import br.com.darm.api.banco.mscliente.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -50,6 +53,11 @@ public class ClienteController {
         return ResponseEntity.ok(cartoes);
     }
 
+    @GetMapping("/listar")
+    public ResponseEntity<Page<Cliente>> listar(@RequestParam(name = "estado") String estado, Pageable pageable) {
+        Page<Cliente> clientes = clienteService.listarPorEstado(estado, pageable);
 
+        return ResponseEntity.ok(clientes);
+    }
 
 }

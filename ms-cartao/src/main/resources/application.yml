@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/cartao-ms
     username: postgres
-    password: postgres
+    password: pass
   jpa:
     hibernate:
       ddl-auto: update

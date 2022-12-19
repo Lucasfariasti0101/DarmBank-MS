@@ -5,8 +5,9 @@ import br.com.darm.api.banco.mscartao.enums.StatusCartao;
 import br.com.darm.api.banco.mscartao.model.Cartao;
 import br.com.darm.api.banco.mscartao.repository.CartaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +36,23 @@ public class CartaoService {
     }
 
     public Cartao atualizarStatus(String numeroCartao, String status, String mensagem) {
-       Optional<Cartao> cartao = cartaoRepo.findByNumero(numeroCartao);
+        Optional<Cartao> cartao = cartaoRepo.findByNumero(numeroCartao);
         cartao.ifPresent(value -> value.setStatusCartao(StatusCartao.valueOf(status.toUpperCase())));
         return cartao.orElseThrow(IllegalArgumentException::new);
+    }
+
+    public Page<Cartao> listarTodos(Pageable pageable) {
+        return cartaoRepo.findAll(pageable);
+    }
+
+    public Page<Cartao> listarPorStatus(String status, Pageable pageable) {
+        status = status.toUpperCase();
+        if (status.equals(StatusCartao.APROVADO.name())
+                || status.equals(StatusCartao.REPROVADO.name())
+                || status.equals(StatusCartao.PENDENTE.name())) {
+
+            return cartaoRepo.findAllByStatus(status, pageable);
+        }
+        throw new IllegalArgumentException("{}"+status);
     }
 }
