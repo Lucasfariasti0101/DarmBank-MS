@@ -4,6 +4,17 @@ server:
 spring:
   application:
     name: "cliente-ms"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cliente-ms
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
 
 eureka:
   client:

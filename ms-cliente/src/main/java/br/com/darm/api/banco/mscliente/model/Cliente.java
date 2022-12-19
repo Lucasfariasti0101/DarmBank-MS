@@ -1,10 +1,7 @@
 package br.com.darm.api.banco.mscliente.model;
 
 import br.com.darm.api.banco.mscliente.enums.TipoConta;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.UUID;
@@ -13,13 +10,17 @@ import java.util.UUID;
 @Entity
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String nome;
     private String email;
     private String cpf;
     private String telefone;
+    @Embedded
     private Endereco endereco;
+
+    @Enumerated(value = EnumType.STRING)
     private TipoConta tipoConta;
+
     private String senha;
 }
