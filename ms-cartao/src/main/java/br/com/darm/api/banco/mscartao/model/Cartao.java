@@ -1,10 +1,8 @@
 package br.com.darm.api.banco.mscartao.model;
 
 import br.com.darm.api.banco.mscartao.dtos.CartaoDto;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.darm.api.banco.mscartao.enums.StatusCartao;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.UUID;
@@ -13,19 +11,25 @@ import java.util.UUID;
 @Entity
 public class Cartao {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(length = 16, nullable = false, unique = true)
     private String numero;
 
+    @Column(length = 3)
     private String cvc;
 
     private String bandeira;
 
     private String dataValidade;
 
+    @Enumerated(value = EnumType.STRING)
+    private StatusCartao statusCartao;
+
     private String nomeCliente;
 
+    @Column(nullable = false)
     private UUID clienteId;
 
     public static Cartao criarCartao(CartaoDto dto) {

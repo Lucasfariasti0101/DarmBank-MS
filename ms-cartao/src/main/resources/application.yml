@@ -4,6 +4,16 @@ server:
 spring:
   application:
     name: "cartao-ms"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cartao-ms
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 
 eureka:
   client:
@@ -12,4 +22,3 @@ eureka:
 
   instance:
     instance-id: ${spring.application.name}:${random.int}
-
