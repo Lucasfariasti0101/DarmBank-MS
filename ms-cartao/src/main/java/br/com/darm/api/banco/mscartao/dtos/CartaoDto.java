@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class CartaoDto {
@@ -26,6 +28,8 @@ public class CartaoDto {
     @NotBlank
     private String nomeCliente;
 
+    @NotBlank
+    private UUID idCliente;
     public static CartaoDto criarCartaoDto(Cartao cartao) {
         CartaoDto cartaoDto = new CartaoDto();
 
@@ -34,6 +38,7 @@ public class CartaoDto {
         cartaoDto.setNumero(cartao.getNumero());
         cartaoDto.setDataValidade(cartao.getDataValidade());
         cartaoDto.setNomeCliente(cartao.getNomeCliente());
+        cartaoDto.setIdCliente(cartao.getClienteId());
         return cartaoDto;
     }
 }

@@ -24,8 +24,9 @@ public class CartaoController {
     ModelMapper mapper;
 
     @PostMapping
-    public Cartao cadastrar(@Valid CartaoDto cartaoDto) {
-        return cartaoService.cadastrar(cartaoDto);
+    public CartaoDto cadastrar(@Valid CartaoDto cartaoDto) {
+        Cartao cartao = cartaoService.cadastrar(cartaoDto);
+        return CartaoDto.criarCartaoDto(cartao);
     }
 
     @GetMapping("/listar/{clientId}")
@@ -46,17 +47,17 @@ public class CartaoController {
                                   @RequestBody String status,
                                   @RequestBody String mensagem) {
 
-       return cartaoService.atualizarStatus(numeroCartao, status, mensagem);
+        return cartaoService.atualizarStatus(numeroCartao, status, mensagem);
     }
 
     @GetMapping("/listar-todos")
     public Page<Cartao> listar(Pageable pageable) {
-       return cartaoService.listarTodos(pageable);
+        return cartaoService.listarTodos(pageable);
     }
 
     @GetMapping("/listarPorStatus")
     public Page<Cartao> listarPorStatus(@RequestParam(name = "status") String status, Pageable pageable) {
 
-       return cartaoService.listarPorStatus(status, pageable);
+        return cartaoService.listarPorStatus(status, pageable);
     }
 }

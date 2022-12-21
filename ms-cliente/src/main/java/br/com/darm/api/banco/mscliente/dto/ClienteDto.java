@@ -1,8 +1,7 @@
 package br.com.darm.api.banco.mscliente.dto;
 
-import br.com.darm.api.banco.mscliente.model.Cliente;
-import br.com.darm.api.banco.mscliente.model.Endereco;
 import br.com.darm.api.banco.mscliente.enums.TipoConta;
+import br.com.darm.api.banco.mscliente.model.Cliente;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -27,10 +26,10 @@ public class ClienteDto {
     private String telefone;
 
     @NotBlank
-    private Endereco endereco;
+    private EnderecoDto endereco;
 
     @NotBlank
-    private TipoConta tipoConta;
+    private String tipoConta;
 
     @NotBlank
     private String senha;
@@ -40,23 +39,23 @@ public class ClienteDto {
         cliente.setCpf(cpf);
         cliente.setNome(nome);
         cliente.setEmail(email);
-        cliente.setEndereco(endereco);
+        cliente.setEndereco(endereco.criarEntityEndereco());
         cliente.setTelefone(telefone);
-        cliente.setTipoConta(tipoConta);
+        cliente.setTipoConta(TipoConta.valueOf(tipoConta.toUpperCase()));
         cliente.setSenha(senha);
         return cliente;
     }
 
     public ClienteDto criaClientDTO(Cliente cliente) {
-        ClienteDto clienteDto =  new ClienteDto();
+        ClienteDto clienteDto = new ClienteDto();
 
         clienteDto.setCpf(cliente.getCpf());
         clienteDto.setEmail(cliente.getEmail());
         clienteDto.setNome(cliente.getNome());
         clienteDto.setSenha(cliente.getSenha());
         clienteDto.setTelefone(cliente.getTelefone());
-        clienteDto.setTipoConta(cliente.getTipoConta());
-        clienteDto.setEndereco(cliente.getEndereco());
+        clienteDto.setTipoConta(cliente.getTipoConta().name());
+        clienteDto.setEndereco(EnderecoDto.criarEntityEnderecoDto(cliente.getEndereco()));
 
         return clienteDto;
     }
