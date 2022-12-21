@@ -8,8 +8,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,13 +27,18 @@ public class CartaoController {
     ModelMapper mapper;
 
     @PostMapping
-    public CartaoDto cadastrar(@Valid CartaoDto cartaoDto) {
+    public ResponseEntity<CartaoDto> cadastrar(@RequestBody @Valid CartaoDto cartaoDto) {
         Cartao cartao = cartaoService.cadastrar(cartaoDto);
-        return CartaoDto.criarCartaoDto(cartao);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/cartao")
+                .buildAndExpand(cartaoDto)
+                .toUri();
+        return ResponseEntity.created(uri).body(CartaoDto.criarCartaoDto(cartao));
     }
 
     @GetMapping("/listar/{clientId}")
-    public List<CartaoDto> listarCartoes(@PathVariable UUID clienteId) {
+    public List<CartaoDto> listarCartoes(@PathVariable String clienteId) {
         List<Cartao> cartoesList = cartaoService.listarCartoes(clienteId);
 
         return cartoesList.stream()

@@ -1,5 +1,6 @@
 package br.com.darm.api.banco.mscartao.dtos;
 
+import br.com.darm.api.banco.mscartao.enums.TipoCartao;
 import br.com.darm.api.banco.mscartao.model.Cartao;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,10 +27,13 @@ public class CartaoDto {
     private String dataValidade;
 
     @NotBlank
+    private String tipoCartao;
+
+    @NotBlank
     private String nomeCliente;
 
     @NotBlank
-    private UUID idCliente;
+    private String idCliente;
     public static CartaoDto criarCartaoDto(Cartao cartao) {
         CartaoDto cartaoDto = new CartaoDto();
 
@@ -38,7 +42,8 @@ public class CartaoDto {
         cartaoDto.setNumero(cartao.getNumero());
         cartaoDto.setDataValidade(cartao.getDataValidade());
         cartaoDto.setNomeCliente(cartao.getNomeCliente());
-        cartaoDto.setIdCliente(cartao.getClienteId());
+        cartaoDto.setIdCliente(cartao.getClienteId().toString());
+        cartaoDto.setTipoCartao(cartao.getTipoCartao().toString());
         return cartaoDto;
     }
 }

@@ -14,8 +14,8 @@ import java.util.UUID;
 public interface CartaoClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/listar/{clienteId}")
-    List<CartaoDTO> listarCartoesClienteId(UUID id);
+    List<CartaoDTO> listarCartoesClienteId(@PUUID id);
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/atualizar/status/{numeroCartao}")
-    CartaoDTO atualizarStatusCartao( String numeroCartao);
+    CartaoDTO atualizarStatusCartao(@PathVariable("numeroCartao") String numeroCartao);
 }

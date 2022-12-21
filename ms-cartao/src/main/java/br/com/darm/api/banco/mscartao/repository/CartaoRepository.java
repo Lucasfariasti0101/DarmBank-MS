@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CartaoRepository extends JpaRepository<Cartao, UUID> {
-    List<Cartao> findAllByClienteId(UUID clienteId);
+    List<Cartao> findAllByClienteId(String clienteId);
 
     @Query(nativeQuery = true, value = "DELETE * FROM cartao " +
             "WHERE numero LIKE (:numero) " +

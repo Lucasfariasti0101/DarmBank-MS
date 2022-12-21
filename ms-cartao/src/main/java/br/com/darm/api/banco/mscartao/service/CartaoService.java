@@ -26,7 +26,7 @@ public class CartaoService {
     }
 
 
-    public List<Cartao> listarCartoes(UUID clienteId) {
+    public List<Cartao> listarCartoes(String clienteId) {
         return cartaoRepo.findAllByClienteId(clienteId);
     }
 

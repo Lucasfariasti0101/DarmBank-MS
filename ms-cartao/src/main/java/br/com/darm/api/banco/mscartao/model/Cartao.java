@@ -2,6 +2,7 @@ package br.com.darm.api.banco.mscartao.model;
 
 import br.com.darm.api.banco.mscartao.dtos.CartaoDto;
 import br.com.darm.api.banco.mscartao.enums.StatusCartao;
+import br.com.darm.api.banco.mscartao.enums.TipoCartao;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,6 +28,9 @@ public class Cartao {
     @Enumerated(value = EnumType.STRING)
     private StatusCartao statusCartao;
 
+    @Enumerated(value = EnumType.STRING)
+    private TipoCartao tipoCartao;
+
     private String nomeCliente;
 
     @Column(nullable = false)
@@ -39,6 +43,8 @@ public class Cartao {
         cartao.setBandeira(dto.getBandeira());
         cartao.setDataValidade(dto.getDataValidade());
         cartao.setNomeCliente(dto.getNomeCliente());
+        cartao.setClienteId(UUID.fromString(dto.getIdCliente()));
+        cartao.setTipoCartao(TipoCartao.valueOf(dto.getTipoCartao()));
         return cartao;
     }
 

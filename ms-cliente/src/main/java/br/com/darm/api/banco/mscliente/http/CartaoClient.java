@@ -11,10 +11,10 @@ import java.util.UUID;
 
 @FeignClient("cartao-ms")
 public interface CartaoClient {
-    @RequestMapping(method = RequestMethod.POST, value = "/cartao")
+    @RequestMapping(method = RequestMethod.POST, value = "/cartao", consumes = "application/json")
     CartaoDto cadastrar(CartaoDto cartaoDto);
 
-    @RequestMapping(method = RequestMethod.GET, value = "/listar/{clienteId}")
-    List<CartaoDto> listarCartoes(@PathVariable UUID id);
+    @RequestMapping(method = RequestMethod.GET, value = "/listar/{clienteId}", consumes = "application/json")
+    List<CartaoDto> listarCartoes(@PathVariable("clienteId") String clienteId);
 
 }

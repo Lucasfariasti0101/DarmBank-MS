@@ -31,12 +31,14 @@ public class ClienteService {
     }
 
     public CartaoDto cadastrarCartao(CartaoDto cartaoDto) {
+        System.out.println(cartaoDto);
+
         return cartaoClient.cadastrar(cartaoDto);
         // TODO: Implement circuit breaker with resilience4j
     }
 
 
-    public List<CartaoDto> listarCartoes(UUID clienteId) {
+    public List<CartaoDto> listarCartoes(String clienteId) {
         // TODO: Implement circuit breaker with resilience4j
        return cartaoClient.listarCartoes(clienteId);
 

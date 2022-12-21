@@ -35,7 +35,7 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrar-cartao")
-    public ResponseEntity<CartaoDto> cadastrarCartao(CartaoDto dto) {
+    public ResponseEntity<CartaoDto> cadastrarCartao(@RequestBody CartaoDto dto) {
         clienteService.cadastrarCartao(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -46,9 +46,9 @@ public class ClienteController {
     }
 
     @GetMapping("/cartoes/{id}")
-    public ResponseEntity<List<CartaoDto>> listarCartoes(@PathVariable UUID clientId) {
+    public ResponseEntity<List<CartaoDto>> listarCartoes(@PathVariable String clienteId) {
 
-        List<CartaoDto> cartoes = clienteService.listarCartoes(clientId);
+        List<CartaoDto> cartoes = clienteService.listarCartoes(clienteId);
 
         return ResponseEntity.ok(cartoes);
     }
