@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: "cliente-ms"
+    name: cliente-ms
   datasource:
     url: jdbc:postgresql://localhost:5432/cliente-ms
     username: postgres
